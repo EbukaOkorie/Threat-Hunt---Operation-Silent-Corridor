@@ -14,6 +14,8 @@
 
 ---
 
+<img width="1828" height="636" alt="image" src="https://github.com/user-attachments/assets/372004af-048c-4598-a65a-440da799b42f" />
+
 ## Table of Contents
 
 1. [Executive Summary](#1-executive-summary)
@@ -119,7 +121,7 @@ When I looked at those 4 source IPs more closely:
 
 The last three IPs looked like anonymisation infrastructure (VPN services, proxies, or Tor exit nodes). Regular employees do not connect from multiple anonymous IPs at 2am.
 
-> **[EVIDENCE PLACEHOLDER - Q02: Screenshot of VPN logs showing the failed login from 185.220.101.34 at 23:47 followed by the successful login at 02:14]**
+<img width="1251" height="677" alt="image" src="https://github.com/user-attachments/assets/966722ce-44ce-47bf-bcf9-307e10c00cea" />
 
 I also noticed something important about the tunnel IPs. When the real s.brandt connected (from 88.153.72.14), the VPN assigned them tunnel IP **10.20.10.101**. When the attacker connected (from the anonymous IPs), they got tunnel IP **10.1.96.114**. This difference became really useful later when tracking where the attacker went inside the network.
 
@@ -145,7 +147,7 @@ HuntData
 
 The very first suspicious command was `systeminfo`, and it ran at exactly the same time as the attacker's first successful VPN login (Feb 20 02:14). The `systeminfo` command shows you everything about a machine: OS version, hardware, domain membership, network config. It is the first thing an attacker runs to understand where they have landed. It was spawned by `cmd.exe`, meaning the attacker opened a command prompt and typed it in.
 
-> **[EVIDENCE PLACEHOLDER - Q06: Screenshot showing systeminfo.exe spawned by cmd.exe at 2026-02-20T02:14]**
+<img width="1251" height="677" alt="image" src="https://github.com/user-attachments/assets/b04b5773-5cf8-494e-9357-8514027f6505" />
 
 Three days later (Feb 23 at 01:47), the attacker came back and started enumerating Active Directory. They wanted to know who the admins were:
 
@@ -174,7 +176,7 @@ HuntData
 
 Two internal servers showed up: **SRV-DC01** (the domain controller, at 10.1.31.206) and **SRV-FILES02** (a file server, at 10.1.70.42). The attacker was mapping out the network to figure out where the valuable stuff was.
 
-> **[EVIDENCE PLACEHOLDER - Q08: Screenshot of DNS queries showing SRV-DC01 and SRV-FILES02 resolved from WS-ENG04]**
+<img width="918" height="923" alt="image" src="https://github.com/user-attachments/assets/535c72ae-ee82-4ca0-ac2e-197342ad281f" />
 
 ---
 
@@ -272,7 +274,7 @@ netsh interface portproxy add v4tov4 listenaddress=0.0.0.0
   listenport=9999 connectaddress=10.1.36.210 connectport=8443 protocol=tcp
 ```
 
-> **[EVIDENCE PLACEHOLDER - Q24: Screenshot of the netsh portproxy command on SRV-DC01]**
+<img width="1240" height="514" alt="image" src="https://github.com/user-attachments/assets/7506a4ff-9f13-4f3b-b4d3-aa5b66e4a387" />
 
 What this does is create a chain of network tunnels. Traffic coming into WS-ENG04 on port 8443 gets forwarded to SRV-DC01 on port 445 (SMB). Traffic coming into SRV-DC01 on port 9999 gets forwarded to another address. These rules are saved in the Windows registry and survive reboots. Even if you change every password in the domain, these tunnels still work. That is what makes them dangerous as a persistence mechanism.
 
@@ -307,7 +309,7 @@ powershell Compress-Archive -Path 'C:\Engineering\Avionics\A400M_NavSys\*'
   -DestinationPath 'C:\Windows\Temp\win_update_kb5034.zip' -Force
 ```
 
-> **[EVIDENCE PLACEHOLDER - Q25: Screenshot of the Compress-Archive command targeting A400M_NavSys]**
+<img width="1173" height="779" alt="image" src="https://github.com/user-attachments/assets/ef5646ef-84f7-4972-a876-156741ac310e" />
 
 The A400M is a military transport aircraft used by several European air forces. The NavSys directory contains navigation system engineering data. This is exactly the kind of intellectual property that GREY VEIL goes after according to the BfV advisory. They compressed the entire directory into a zip file and named it to look like a Windows update (`win_update_kb5034.zip`) to avoid suspicion.
 
@@ -728,8 +730,6 @@ HuntData
 
 **Answer:** `185.220.101.34`
 
-> **[INSERT EVIDENCE SCREENSHOT HERE]**
-> What to capture: The VPN log showing ssl-login-fail from 185.220.101.34 at 2026-02-19T23:47:12 followed by ssl-login-succ from the same IP at 2026-02-20T02:14:00.
 
 ---
 
@@ -746,8 +746,6 @@ HuntData
 
 **Answer:** `systeminfo.exe/cmd.exe`
 
-> **[INSERT EVIDENCE SCREENSHOT HERE]**
-> What to capture: The first row showing systeminfo.exe spawned by cmd.exe at 2026-02-20T02:14:00.
 
 ---
 
@@ -762,9 +760,6 @@ HuntData
 ```
 
 **Answer:** `SRV-DC01, SRV-FILES02`
-
-> **[INSERT EVIDENCE SCREENSHOT HERE]**
-> What to capture: DNS queries resolving SRV-DC01 to 10.1.31.206 and SRV-FILES02 to 10.1.70.42.
 
 ---
 
@@ -781,9 +776,6 @@ HuntData
 
 **Answer:** `netsh  interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=9999 connectaddress=10.1.36.210 connectport=8443 protocol=tcp`
 
-> **[INSERT EVIDENCE SCREENSHOT HERE]**
-> What to capture: The netsh portproxy command on SRV-DC01 showing the full port forwarding rule.
-
 ---
 
 ### Q25 - Targeted Directory
@@ -799,8 +791,6 @@ HuntData
 
 **Answer:** `C:\Engineering\Avionics\A400M_NavSys`
 
-> **[INSERT EVIDENCE SCREENSHOT HERE]**
-> What to capture: The Compress-Archive command showing the source path (A400M_NavSys) and destination (win_update_kb5034.zip).
 
 ---
 
